@@ -1,6 +1,6 @@
 try:
     from django.template.loaders.filesystem import load_template_source as default_template_loader
-except:
+except ImportError:
     from django.template.loaders.filesystem import Loader
     loader = Loader()
     default_template_loader = loader.load_template_source
