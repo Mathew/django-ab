@@ -6,8 +6,9 @@ except ImportError:
 from ab.abs import AB
 from ab.models import Experiment
 
-
 _thread_locals = local()
+
+
 def get_current_request():
     return getattr(_thread_locals, 'request', None)
 
@@ -21,7 +22,7 @@ class ABMiddleware:
         reached it's goal.
         """
         _thread_locals.request = request
-        
+
         request.ab = AB(request)
         # request.ab.run()
         # If at least one Experiment is running then check if we're at a Goal

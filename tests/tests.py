@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from django.test import TestCase
 
-from ab.models import Test, Experiment
+from ab.models import Test
 
 
 class ABTests(TestCase):
