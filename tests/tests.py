@@ -25,8 +25,6 @@ class ABTests(TestCase):
 
         # It always looks like we loaded the original.
         response = self.client.get("/test/")
-        print response
-        print dir(response)
 
         try:
             self.assertTrue(response.template.name, "original.html")
