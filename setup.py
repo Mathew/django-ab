@@ -104,7 +104,7 @@ def find_package_data(
 
 setup(
     name="django-ab",
-    version="0.2",
+    version="0.3",
     url='https://github.com/mathew/django-ab',
     description="Create simple A/B tests in Django by dynamically switching \
         templates. Records unique hits and conversions to tests.",
