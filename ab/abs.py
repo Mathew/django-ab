@@ -7,7 +7,7 @@ class AB(object):
     """
     Uses request session to track Experiment state.
         - Whether an Experiment/Test is active
-        - Whether an Experiment/Test has been converted   
+        - Whether an Experiment/Test has been converted
     """
 
     def __init__(self, request):
@@ -16,7 +16,7 @@ class AB(object):
     def is_active(self):
         """True if at least one Experiment is running on this request."""
         return "ab_active" in self.request.session
-        
+
     def is_converted(self, exp):
         """
         True if request location is the Goal of Experiment and this request
@@ -24,15 +24,15 @@ class AB(object):
         """
         return self.is_experiment_active(exp) and not self.is_experiment_converted(exp) \
             and exp.goal in self.request.path
-        
+
     def is_experiment_active(self, exp):
         """True if this Experiment is active."""
         return self.get_experiment_key(exp) in self.request.session
-        
+
     def is_experiment_converted(self, exp):
         """True if this Experiment has been converted."""
         return "converted" in self.request.session[self.get_experiment_key(exp)]
-    
+
     def get_test(self, exp):
         """Returns a random Test for this Experiment"""
         tests = exp.test_set.all()
@@ -46,12 +46,12 @@ class AB(object):
             return Experiment.objects.get(template_name=template_name)
         except Experiment.DoesNotExist:
             raise TemplateDoesNotExist, template_name
-        
+
     def run(self, template_name):
         """
         Searches for an Experiment running on template_name. If none are found
         raises a TemplateDoesNotExist otherwise activates a Test for that
-        Experiment unless one is already running and returns the Test 
+        Experiment unless one is already running and returns the Test
         template_name.
         """
         exp = self.get_experiment(template_name)
@@ -74,10 +74,10 @@ class AB(object):
 
         # Activate this experiment/test on the request.
         self.request.session[key] = {"id": test.id, "template": test.template_name}
-        
+
         # Mark that there is at least one A/B test running.
         self.request.session["ab_active"] = True
-        
+
     def convert(self, exp):
         """Update the test active on the request for this experiment."""
         key = self.get_experiment_key(exp)
@@ -85,6 +85,6 @@ class AB(object):
         test = Test.objects.get(pk=test_id)
         test.conversions = test.conversions + 1
         test.save()
-        
+
         self.request.session[key]["converted"] = 1
         self.request.session.modified = True

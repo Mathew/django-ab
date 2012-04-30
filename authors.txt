@@ -1,0 +1,4 @@
+John Boxall
+Mathew Taylor
+
+Thanks to Dougal Matthews for the help with tox.
