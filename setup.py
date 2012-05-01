@@ -108,7 +108,6 @@ setup(
     url='https://github.com/mathew/django-ab',
     description="Create simple A/B tests in Django by dynamically switching \
         templates. Records unique hits and conversions to tests.",
-    long_description=read('README.md'),
     author='John Boxall',
     author_email='john@handimobility.ca',
     packages=find_packages(exclude=['tests', ]),
